@@ -1,1 +1,15 @@
-spring.application.name=inGress
+spring:
+  application:
+    name: inGress
+
+  datasource:
+    url: jdbc:postgresql://localhost:5431/inGress_DB
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgres.Driver
+
+  jpa:
+    show-sql: true
+
+  flyway:
+    enable: true
