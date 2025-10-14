@@ -1,6 +1,8 @@
 package johnatanSSP.inGress.core.entities;
 
-import jakarta.persistence.*;
+import johnatanSSP.inGress.core.enums.RatedEvent;
+import johnatanSSP.inGress.core.enums.StatusTicket;
+
 import java.time.LocalDateTime;
 
 public record Ticket(
@@ -11,22 +13,14 @@ public record Ticket(
         String location,
         String creator,
         String category,
-        LocalDateTime creationDate,
-        LocalDateTime updateDate,
+        LocalDateTime startDate,
+        LocalDateTime endDate,
+        String organization,
         String url,
+        String identify,
         String image,
-        @Enumerated
         StatusTicket status,
-        @Enumerated
         RatedEvent rated
 ) {
-
-    public enum StatusTicket{
-        OPEN, IN_PROGRESS, CLOSED, CANCELED
-    }
-
-    public enum RatedEvent {
-        BAD, AVERAGE, GOOD, VERY_GOOD, SENSATIONAL
-    }
 
 }
