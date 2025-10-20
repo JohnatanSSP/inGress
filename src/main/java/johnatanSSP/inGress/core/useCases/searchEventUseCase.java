@@ -1,4 +1,10 @@
 package johnatanSSP.inGress.core.useCases;
 
-public interface searchEventUseCase {
+import johnatanSSP.inGress.core.entities.Ticket;
+
+import java.util.List;
+
+public interface SearchEventUseCase {
+
+    public List<Ticket> execute(Ticket ticket);
 }
