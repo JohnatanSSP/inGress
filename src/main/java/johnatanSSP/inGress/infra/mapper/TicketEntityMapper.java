@@ -10,9 +10,9 @@ public class TicketEntityMapper {
     public TicketEntity toEntity(Ticket ticket){
         return new TicketEntity(
                 ticket.id(),
+                ticket.title(),
                 ticket.description(),
                 ticket.location(),
-                ticket.title(),
                 ticket.creator(),
                 ticket.category(),
                 ticket.startDate(),
