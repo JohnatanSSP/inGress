@@ -8,6 +8,8 @@ import johnatanSSP.inGress.infra.persistence.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class TicketRepositoryGateway implements TicketGateway {
@@ -21,4 +23,10 @@ public class TicketRepositoryGateway implements TicketGateway {
         TicketEntity newEntity = repository.save(entity);
         return mapper.toDomain(newEntity);
     }
+
+    @Override
+    public List<Ticket> SearchTicket() {
+        return repository.findAll().stream().map(mapper::toDomain).toList();
+    }
+
 }
