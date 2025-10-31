@@ -5,9 +5,12 @@ import johnatanSSP.inGress.core.useCases.CreateEventUseCase;
 import johnatanSSP.inGress.core.useCases.SearchEventUseCase;
 import johnatanSSP.inGress.infra.dtos.TicketDto;
 import johnatanSSP.inGress.infra.mapper.TicketDtoMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,9 +28,13 @@ public class TicketController {
     }
 
     @PostMapping("createTicket")
-    public TicketDto createTicket(@RequestBody TicketDto Dto){
+    public ResponseEntity<Map<String, Object>> createTicket(@RequestBody TicketDto Dto){
         Ticket ticket = createEventUseCase.execute(ticketDtoMapper.toDomain(Dto));
-        return ticketDtoMapper.toDto(ticket);
+        Map<String,Object> response = new HashMap<>();
+        response.put("message:","Ticket created successfully");
+        response.put("Info:",ticketDtoMapper.toDto(ticket));
+
+        return ResponseEntity.ok(response);
     };
 
     @GetMapping("searchTicket")
