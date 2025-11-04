@@ -29,4 +29,8 @@ public class TicketRepositoryGateway implements TicketGateway {
         return repository.findAll().stream().map(mapper::toDomain).toList();
     }
 
+    @Override
+    public boolean identifierExists(String identifier) {
+        return repository.findAll().stream().anyMatch(ticket -> ticket.getIdentify().equalsIgnoreCase(identifier));
+    }
 }
