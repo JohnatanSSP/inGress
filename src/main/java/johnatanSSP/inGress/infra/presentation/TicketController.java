@@ -2,6 +2,7 @@ package johnatanSSP.inGress.infra.presentation;
 
 import johnatanSSP.inGress.core.entities.Ticket;
 import johnatanSSP.inGress.core.useCases.CreateEventUseCase;
+import johnatanSSP.inGress.core.useCases.FilterTicketUseCase;
 import johnatanSSP.inGress.core.useCases.SearchEventUseCase;
 import johnatanSSP.inGress.infra.dtos.TicketDto;
 import johnatanSSP.inGress.infra.mapper.TicketDtoMapper;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,11 +22,13 @@ public class TicketController {
     private final CreateEventUseCase createEventUseCase;
     private final TicketDtoMapper ticketDtoMapper;
     private final SearchEventUseCase searchEventUseCase;
+    private final FilterTicketUseCase filterTicketUseCase;
 
-    public TicketController(CreateEventUseCase createEventUseCase, TicketDtoMapper ticketDtoMapper, SearchEventUseCase searchEventUseCase) {
+    public TicketController(CreateEventUseCase createEventUseCase, TicketDtoMapper ticketDtoMapper, SearchEventUseCase searchEventUseCase, FilterTicketUseCase filterTicketUseCase) {
         this.createEventUseCase = createEventUseCase;
         this.ticketDtoMapper = ticketDtoMapper;
         this.searchEventUseCase = searchEventUseCase;
+        this.filterTicketUseCase = filterTicketUseCase;
     }
 
     @PostMapping("createTicket")
@@ -43,5 +47,11 @@ public class TicketController {
                 .stream()
                 .map(ticketDtoMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("identify/{identify}")
+    public ResponseEntity<TicketDto> FindTicketByIdentify(@PathVariable("identify") String Identify){
+        Ticket ticket = filterTicketUseCase.execute(Identify);
+        return ResponseEntity.ok(ticketDtoMapper.toDto(ticket));
     }
 }

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -30,7 +31,12 @@ public class TicketRepositoryGateway implements TicketGateway {
     }
 
     @Override
-    public boolean identifierExists(String identifier) {
-        return repository.findAll().stream().anyMatch(ticket -> ticket.getIdentify().equalsIgnoreCase(identifier));
+    public boolean identifierExists(String identify) {
+        return repository.findAll().stream().anyMatch(ticket -> ticket.getIdentify().equalsIgnoreCase(identify));
+    }
+
+    @Override
+    public Optional<Ticket> FilterTicket(String identify) {
+        return repository.findByidentify(identify);
     }
 }
