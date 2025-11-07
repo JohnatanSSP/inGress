@@ -17,4 +17,13 @@ public class ControllerExceptionHandler {
         response.put("message", "please try again, insert a valid number identify for your ticket");
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(NotFoundEventException.class)
+    public ResponseEntity<Map<String, String>> handleDuplicateTicketExceptions(NotFoundEventException exception) {
+        Map<String, String> response = new HashMap<>();
+        response.put("status: ", exception.getMessage());
+        response.put("message", "The request Ticket was not found, check the identify and try again");
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
 }
