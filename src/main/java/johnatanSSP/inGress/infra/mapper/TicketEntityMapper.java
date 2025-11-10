@@ -4,8 +4,12 @@ import johnatanSSP.inGress.core.entities.Ticket;
 import johnatanSSP.inGress.infra.persistence.TicketEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class TicketEntityMapper {
+
+    String generatedIdentify = UUID.randomUUID().toString();
 
     public TicketEntity toEntity(Ticket ticket){
         return new TicketEntity(
